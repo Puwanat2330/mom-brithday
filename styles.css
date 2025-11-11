@@ -1,0 +1,716 @@
+/* General Body Styles - Keep this as is for overall theme */
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    margin: 0;
+    padding: 0;
+    background: linear-gradient(to bottom right, #ffdde1, #ee9ca7);
+    /* พื้นหลังไล่เฉดสีชมพูอ่อน */
+    color: #333;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    overflow-x: hidden;
+    position: relative;
+    box-sizing: border-box;
+    /* Remove background effects here if index.html will have its own full background */
+}
+
+
+/* Specific Styles for Index Page Background */
+
+.home-background {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(to top, #ffebee 0%, #ffcdd2 100%);
+    /* เปลี่ยนพื้นหลังให้ดูสดใสขึ้น */
+    overflow: hidden;
+    z-index: -1;
+    /* ให้พื้นหลังอยู่ด้านหลัง */
+}
+
+
+/* Confetti effect for background (optional, similar to finale) */
+
+.home-confetti {
+    position: absolute;
+    width: 10px;
+    height: 10px;
+    background-color: transparent;
+    /* Changed to transparent, use border for outline */
+    border: 2px solid;
+    /* Confetti with outline */
+    border-radius: 50%;
+    opacity: 0;
+    animation: homeFall 8s forwards infinite;
+    /* Fall slower and infinitely */
+    z-index: 1;
+    /* Above general background, below container */
+}
+
+
+/* Random colors for confetti */
+
+.home-confetti:nth-child(3n+1) {
+    border-color: #ff80ab;
+}
+
+
+/* Pink */
+
+.home-confetti:nth-child(3n+2) {
+    border-color: #ffd180;
+}
+
+
+/* Orange */
+
+.home-confetti:nth-child(3n+3) {
+    border-color: #80cbc4;
+}
+
+
+/* Teal */
+
+@keyframes homeFall {
+    0% {
+        transform: translateY(-100px) rotate(0deg);
+        opacity: 0;
+    }
+    10% {
+        opacity: 1;
+    }
+    /* Appear quickly */
+    90% {
+        opacity: 1;
+    }
+    100% {
+        transform: translateY(100vh) rotate(720deg);
+        opacity: 0;
+    }
+}
+
+
+/* Container for all pages - Adjust if home page uses full screen */
+
+.container {
+    background-color: #ffffff;
+    border-radius: 25px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    padding: 30px 40px;
+    text-align: center;
+    max-width: 90%;
+    width: 800px;
+    box-sizing: border-box;
+    position: relative;
+    animation: fadeIn 1s ease-out;
+    z-index: 10;
+    /* Make sure it's above background effects */
+}
+
+
+/* Home Page Specifics (Cake Page) - Updated */
+
+.cake-container {
+    background-color: rgba(255, 255, 255, 0.9);
+    /* เพิ่มความโปร่งแสงเล็กน้อย */
+    border-radius: 25px;
+    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.2);
+    /* เงาที่ชัดเจนขึ้น */
+    padding: 50px 40px;
+    max-width: 700px;
+    /* กว้างขึ้นเล็กน้อย */
+    width: 90%;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+    animation: popIn 1s ease-out;
+    /* ใช้ popIn เพื่อความโดดเด่น */
+    z-index: 10;
+    /* ให้กล่องเค้กอยู่ด้านหน้า */
+}
+
+.cake-img {
+    width: 70%;
+    /* เค้กใหญ่ขึ้นเล็กน้อย */
+    height: auto;
+    max-width: 350px;
+    margin-bottom: 25px;
+    animation: bounce 2s infinite ease-in-out;
+    filter: drop-shadow(0 5px 10px rgba(0, 0, 0, 0.2));
+    /* เพิ่มเงาให้เค้กดูมีมิติ */
+}
+
+.cake-container h1 {
+    font-size: 3.2em;
+    /* ตัวอักษรใหญ่ขึ้น */
+    color: #c2185b;
+    /* สีชมพูเข้ม */
+    margin-bottom: 10px;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+    /* เพิ่มเงาให้ตัวหนังสือ */
+    font-family: 'Dancing Script', cursive;
+}
+
+.cake-container p {
+    font-size: 1.3em;
+    /* ตัวอักษรใหญ่ขึ้น */
+    color: #888;
+    margin-bottom: 30px;
+    font-weight: 500;
+}
+
+
+/* Button Styles - Keep as is, but button in index.html might need margin adjustment */
+
+.start-button {
+    margin-top: 10px;
+    /* เพิ่มระยะห่างจากด้านบน */
+    background-color: #ff4081;
+    /* สีชมพูสดใส */
+    color: white;
+    border: none;
+    border-radius: 35px;
+    /* ปุ่มโค้งมนขึ้น */
+    padding: 18px 40px;
+    /* ปุ่มใหญ่ขึ้น */
+    font-size: 1.4em;
+    /* ตัวอักษรใหญ่ขึ้น */
+    font-weight: bold;
+    letter-spacing: 1px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+}
+
+.start-button:hover {
+    background-color: #e91e63;
+    transform: translateY(-5px) scale(1.02);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+}
+
+
+/* Confetti specific for finale page (keep as is) */
+
+
+/* ... (existing confetti styles) ... */
+
+
+/* Responsive adjustments */
+
+@media (max-width: 768px) {
+    .cake-container h1 {
+        font-size: 2.8em;
+    }
+    .cake-container p {
+        font-size: 1.1em;
+    }
+    .start-button {
+        font-size: 1.2em;
+        padding: 15px 30px;
+    }
+    .cake-img {
+        width: 90%;
+        max-width: 300px;
+    }
+}
+
+
+/* General Body Styles */
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    /* ฟอนต์ที่ดูอบอุ่น */
+    margin: 0;
+    padding: 0;
+    background: linear-gradient(to bottom right, #ffdde1, #ee9ca7);
+    /* พื้นหลังไล่เฉดสีชมพูอ่อน */
+    color: #333;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    overflow-x: hidden;
+    /* ป้องกันการเลื่อนแนวนอน */
+    position: relative;
+    box-sizing: border-box;
+}
+
+
+/* Container for all pages */
+
+.container {
+    background-color: #ffffff;
+    border-radius: 25px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    padding: 30px 40px;
+    text-align: center;
+    max-width: 90%;
+    width: 800px;
+    /* กำหนดความกว้างสูงสุดของหน้า */
+    box-sizing: border-box;
+    position: relative;
+    animation: fadeIn 1s ease-out;
+    /* แอนิเมชันตอนหน้าโหลด */
+}
+
+
+/* Basic Heading Styles */
+
+h1 {
+    color: #e91e63;
+    /* สีชมพูเข้ม */
+    font-size: 3em;
+    margin-bottom: 10px;
+    font-family: 'Dancing Script', cursive;
+    /* ฟอนต์แนวเขียนมือสำหรับหัวข้อหลัก */
+}
+
+h2 {
+    color: #c2185b;
+    /* สีชมพู */
+    font-size: 2em;
+    margin-bottom: 15px;
+}
+
+h3 {
+    color: #d81b60;
+    font-size: 1.5em;
+    margin-bottom: 10px;
+}
+
+p {
+    font-size: 1.1em;
+    line-height: 1.6;
+    margin-bottom: 20px;
+}
+
+
+/* Button Styles */
+
+button,
+.button-link {
+    background-color: #ff4081;
+    /* สีชมพูสดใส */
+    color: white;
+    border: none;
+    border-radius: 30px;
+    padding: 15px 30px;
+    font-size: 1.2em;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    text-decoration: none;
+    /* สำหรับ button-link */
+    display: inline-block;
+    /* สำหรับ button-link */
+    margin-top: 10px;
+}
+
+button:hover,
+.button-link:hover {
+    background-color: #e91e63;
+    transform: translateY(-3px);
+}
+
+
+/* Home Page Specifics (Cake Page) */
+
+.cake-container {
+    padding: 50px;
+    background-color: #fff;
+    border-radius: 25px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    max-width: 600px;
+    width: 90%;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+    /* For cake image */
+}
+
+.cake-img {
+    width: 80%;
+    height: auto;
+    max-width: 400px;
+    margin-bottom: 30px;
+    animation: bounce 2s infinite ease-in-out;
+    /* Cake bounce animation */
+}
+
+
+/* Menu Page Specifics */
+
+.menu-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 30px;
+    margin-top: 30px;
+}
+
+.menu-item {
+    background-color: #fce4ec;
+    /* ชมพูอ่อนมาก */
+    border-radius: 15px;
+    padding: 25px;
+    text-decoration: none;
+    color: #333;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    min-height: 180px;
+}
+
+.menu-item:hover {
+    transform: translateY(-7px);
+    box-shadow: 0 12px 25px rgba(0, 0, 0, 0.15);
+}
+
+.menu-item h3 {
+    color: #d81b60;
+    margin-top: 10px;
+    margin-bottom: 5px;
+    font-size: 1.8em;
+}
+
+.menu-item p {
+    font-size: 1em;
+    color: #555;
+    text-align: center;
+}
+
+
+/* Letter Page Specifics */
+
+.envelope {
+    position: relative;
+    width: 500px;
+    height: 350px;
+    background-color: #f7bbcf;
+    /* สีซองจดหมาย */
+    border-radius: 10px;
+    margin: 50px auto;
+    cursor: pointer;
+    box-shadow: 0 8px 15px rgba(0, 0, 0, 0.1);
+    transition: transform 0.5s ease-out;
+}
+
+.envelope:before {
+    /* ฝาซองด้านบน */
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 0;
+    height: 0;
+    border-left: 250px solid transparent;
+    border-right: 250px solid transparent;
+    border-top: 175px solid #f29ec0;
+    /* สีฝาซองเข้มกว่าเล็กน้อย */
+    border-radius: 10px 10px 0 0;
+    transform-origin: top;
+    transition: transform 0.5s ease-out;
+    z-index: 2;
+}
+
+.envelope.open:before {
+    transform: rotateX(180deg);
+}
+
+.envelope.open .letter-content {
+    transform: translateY(-100px);
+    /* เลื่อนจดหมายขึ้นมา */
+    opacity: 1;
+}
+
+.letter-content {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background-color: white;
+    top: 5%;
+    left: 2%;
+    border-radius: 8px;
+    padding: 20px;
+    box-sizing: border-box;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+    transform: translateY(0);
+    opacity: 0;
+    transition: transform 0.8s ease-out 0.3s, opacity 0.8s ease-out 0.3s;
+    z-index: 1;
+    overflow-y: auto;
+    /* ให้เลื่อนได้ถ้าข้อความยาว */
+    text-align: left;
+}
+
+.letter-content h3 {
+    text-align: center;
+    margin-bottom: 15px;
+}
+
+.letter-paper {
+    position: absolute;
+    z-index: 2;
+}
+
+.envelope-flap {
+    position: absolute;
+    z-index: 1;
+}
+
+
+/* Memories Page Specifics */
+
+.gallery-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 15px;
+    margin-top: 30px;
+}
+
+.gallery-item {
+    overflow: hidden;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
+    transition: transform 0.3s ease;
+}
+
+.gallery-item img {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+    display: block;
+}
+
+.gallery-item:hover {
+    transform: scale(1.05);
+}
+
+
+/* Puzzle Page Specifics */
+
+.puzzle-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 15px;
+    margin-top: 30px;
+    max-width: 500px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.puzzle-card {
+    background-color: #ffebee;
+    /* ชมพูอ่อน */
+    border-radius: 10px;
+    min-height: 120px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 3em;
+    color: #ff80ab;
+    cursor: pointer;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    position: relative;
+    perspective: 1000px;
+    /* สำหรับ flip effect */
+}
+
+.puzzle-card:hover {
+    transform: translateY(-5px);
+}
+
+.puzzle-card.revealed {
+    background-color: #f06292;
+    color: white;
+}
+
+.card-inner {
+    width: 100%;
+    height: 100%;
+    transition: transform 0.6s;
+    transform-style: preserve-3d;
+    position: relative;
+}
+
+.card-front,
+.card-back {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    backface-visibility: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 10px;
+}
+
+.front-face,
+.back-face {
+    width: 100%;
+    height: 100%;
+    /* ตัวเลือกที่ดีที่สุดสำหรับเกมความจำ */
+    object-fit: cover;
+}
+
+.card-front {
+    background-color: #ffebee;
+    color: #ff80ab;
+    font-size: 3em;
+}
+
+.card-back {
+    background-color: #f06292;
+    color: white;
+    transform: rotateY(180deg);
+    padding: 10px;
+    box-sizing: border-box;
+    font-size: 0.9em;
+    text-align: center;
+}
+
+.puzzle-card.flipped .card-inner {
+    transform: rotateY(180deg);
+}
+
+
+/* Finale Page Specifics */
+
+.finale-message {
+    font-size: 4em;
+    color: #d81b60;
+    animation: popIn 1s ease-out forwards;
+    margin-bottom: 30px;
+    font-family: 'Dancing Script', cursive;
+}
+
+.finale-item img {
+    display: block;
+    /* 1. เปลี่ยนจาก inline เป็น block */
+    margin-left: auto;
+    /* 2. กำหนด margin ซ้ายอัตโนมัติ */
+    margin-right: auto;
+    /* 3. กำหนด margin ขวาอัตโนมัติ */
+    /* หรือเขียนย่อ: margin: 0 auto; */
+    width: 600px;
+    height: 700px;
+    border-radius: 20px;
+    object-fit: cover;
+    display: flex;
+}
+
+
+/* สมมติว่านี่คือรูปภาพ finale ของคุณ */
+
+.finale-image {
+    width: 500px;
+    height: 500px;
+    /* ถ้าต้องการให้รูปภาพไม่บิดเบี้ยวและซูมเต็มพื้นที่ */
+    border-radius: 20px;
+    object-fit: cover;
+}
+
+
+/* Back Button (Global) */
+
+.back-button {
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    background-color: rgba(255, 255, 255, 0.7);
+    color: #e91e63;
+    border: 1px solid #e91e63;
+    padding: 10px 15px;
+    border-radius: 20px;
+    font-size: 0.9em;
+    text-decoration: none;
+    transition: background-color 3000s ease, color 300s ease;
+    display: flex;
+    align-items: center;
+    z-index: 100;
+}
+
+.back-button:hover {
+    background-color: #e91e63;
+    color: white;
+}
+
+
+/* Keyframe Animations */
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes bounce {
+    0%,
+    100% {
+        transform: translateY(0);
+    }
+    50% {
+        transform: translateY(-10px);
+    }
+}
+
+@keyframes popIn {
+    0% {
+        transform: scale(0.5);
+        opacity: 0;
+    }
+    80% {
+        transform: scale(1.1);
+        opacity: 1;
+    }
+    100% {
+        transform: scale(1);
+    }
+}
+
+
+/* Responsive Design */
+
+@media (max-width: 768px) {
+    h1 {
+        font-size: 2.5em;
+    }
+    h2 {
+        font-size: 1.8em;
+    }
+    .container {
+        padding: 20px;
+    }
+    .menu-grid {
+        grid-template-columns: 1fr;
+    }
+    .envelope {
+        width: 90%;
+        height: 200px;
+    }
+    .envelope:before {
+        border-left: 45vw solid transparent;
+        border-right: 45vw solid transparent;
+        border-top: 100px solid #f29ec0;
+    }
+    .puzzle-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+
+/* Google Fonts Import */
+
+@import url('https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&display=swap');

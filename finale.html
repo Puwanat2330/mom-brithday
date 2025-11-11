@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="th">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>เซอร์ไพรส์สุดท้าย!</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        /* Confetti Effect CSS (Only for finale page) */
+        
+        .confetti {
+            position: absolute;
+            width: 10px;
+            height: 10px;
+            /* ใช้ background-color: transparent และ border สำหรับ confetti แบบวงกลมที่มีสีสัน */
+            background-color: transparent;
+            border: 2px solid;
+            border-radius: 50%;
+            opacity: 0;
+            animation: fall 5s forwards;
+            z-index: 99;
+        }
+        
+        @keyframes fall {
+            0% {
+                transform: translateY(-100px) rotate(0deg);
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(100vh) rotate(720deg);
+                opacity: 0;
+            }
+        }
+    </style>
+</head>
+
+<body class="finale-page">
+
+    <audio id="finaleMusic" loop controls style="display:none;">
+        <source src="Happy Birthday To You.mp3" type="audio/mpeg">
+        
+    </audio>
+
+    <a href="menu.html" class="back-button"><i class="fas fa-arrow-left"></i> กลับ</a>
+
+    <div class="container">
+        <h2 class="finale-message">รักแม่ที่สุดในโลก!</h2>
+        <p>ขอให้แม่มีความสุข สุขภาพแข็งแรง และอยู่กับลูกไปนานๆ เลยน้าาาาครับ</p>
+        <p>!!!!!กดตรงหน้าจอ!!!!!</p>
+        <div class="finale-item"><img src="IMG_2340.JPG" alt="Family Photo"></div>
+        <p style="margin-top: 30px; font-style: italic;">"💖HAPPY BIRTHDAY TO MY MOM💖"</p>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const audio = document.getElementById('finaleMusic');
+
+            // === 1. ฟังก์ชัน Confetti Effect ===
+            function createConfetti() {
+                const confetti = document.createElement('div');
+                confetti.classList.add('confetti');
+                confetti.style.left = Math.random() * 100 + 'vw';
+                confetti.style.animationDuration = Math.random() * 3 + 2 + 's'; // 2-5 seconds
+                // ใช้ HSL เพื่อให้ได้สีสันสดใส
+                confetti.style.borderColor = `hsl(${Math.random() * 360}, 100%, 70%)`;
+                document.body.appendChild(confetti);
+                confetti.addEventListener('animationend', () => {
+                    confetti.remove();
+                });
+            }
+
+            // Generate confetti for a few seconds
+            const confettiInterval = setInterval(createConfetti, 100); // Create confetti every 100ms
+            setTimeout(() => clearInterval(confettiInterval), 8000); // Stop after 8 seconds
+
+            // === 2. บังคับเล่นเพลงอัตโนมัติ (สำคัญที่สุด) ===
+            if (audio) {
+                // พยายามเล่นเพลงทันที (ใช้เวลาหน่วงเล็กน้อยเพื่อให้ DOM โหลดสมบูรณ์)
+                setTimeout(() => {
+                    audio.play().catch(error => {
+                        console.log('Autoplay blocked. Waiting for a user click...');
+
+                        // ถ้าถูกบล็อก, สั่งให้เล่นทันทีที่มีการคลิก/สัมผัสใด ๆ บนหน้า
+                        document.body.addEventListener('click', function startFinaleMusic() {
+                            audio.play().catch(e => console.error("Failed to start finale music after click:", e));
+                            document.body.removeEventListener('click', startFinaleMusic);
+                        }, {
+                            once: true
+                        });
+                    });
+                }, 100); // หน่วง 100ms
+            }
+        });
+    </script>
+</body>
+
+</html>

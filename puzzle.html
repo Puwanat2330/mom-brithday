@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="th">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>เกมความทรงจำของคุณแม่</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+
+    <style>
+        /* Puzzle Page Specifics */
+        
+        .puzzle-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 15px;
+            margin-top: 30px;
+            max-width: 800px;
+            /* <<< ปรับเพิ่มความกว้างสูงสุดของ Grid (จาก 500px) */
+            margin-left: auto;
+            margin-right: auto;
+        }
+        
+        .puzzle-card {
+            background-color: #ffebee;
+            border-radius: 10px;
+            min-height: 558px;
+            /* <<< ปรับเพิ่มความสูงขั้นต่ำของการ์ด (จาก 120px) */
+            /* ... (โค้ดอื่น ๆ) ... */
+        }
+        
+        .card-back {
+            background-color: #f06292;
+            /* สีพื้นหลังชมพูเข้ม */
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        .puzzle-card img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            /* ให้รูปภาพเต็มพื้นที่การ์ด */
+            border-radius: 10px;
+        }
+    </style>
+</head>
+
+<body>
+    <audio id="audioHappy" src="Happy 3 - 11:11:2568 BE 22.36.mp3" preload="auto"></audio>
+    <audio id="audioBirthday" src="./audio/birthday.mp3" preload="auto"></audio>
+    <audio id="audioTo" src="To 3 - 11:11:2568 BE 22.37.mp3" preload="auto"></audio>
+    <audio id="audioYou" src="You 2 - 11:11:2568 BE 22.38.mp3" preload="auto"></audio>
+    <audio id="audioFullSong" src="You2 all 1 - 11:11:2568 BE 22.38.mp3" preload="auto"></audio>
+
+    <a href="menu.html" class="back-button"><i class="fas fa-arrow-left"></i> กลับ</a>
+
+    <div class="container">
+        <h2>เกมความทรงจำ</h2>
+        <p>มาดูกันว่าแม่จะจำเรื่องราวเหล่านี้ได้ไหม? คลิกเพื่อเปิดการ์ด!</p>
+
+        <div class="puzzle-grid">
+            <div class="puzzle-card" data-audio-id="audioHappy" data-order="1">
+                <div class="card-inner">
+                    <div class="card-front">?</div>
+                    <div class="card-back"><img src="IMG_5884.jpg" alt="Happy"></div>
+                </div>
+            </div>
+            <div class="puzzle-card" data-audio-id="audioTo" data-order="2">
+                <div class="card-inner">
+                    <div class="card-front">?</div>
+                    <div class="card-back"><img src="IMG_2342.JPG" alt="Birthday"></div>
+                </div>
+            </div>
+            <div class="puzzle-card" data-audio-id="audioYou" data-order="3">
+                <div class="card-inner">
+                    <div class="card-front">?</div>
+                    <div class="card-back"><img src="IMG_0534.JPG" alt="To"></div>
+                </div>
+            </div>
+            <div class="puzzle-card" data-audio-id="audioHappy" data-order="4">
+                <div class="card-inner">
+                    <div class="card-front">?</div>
+                    <div class="card-back"><img src="IMG_0537.JPG" alt="You"></div>
+                </div>
+            </div>
+            <div class="puzzle-card" data-audio-id="audioTo" data-order="5">
+                <div class="card-inner">
+                    <div class="card-front">?</div>
+                    <div class="card-back"><img src="IMG_2341.JPG" alt="To"></div>
+                </div>
+            </div>
+            <div class="puzzle-card" data-audio-id="audioYou" data-order="6">
+                <div class="card-inner">
+                    <div class="card-front">?</div>
+                    <div class="card-back"><img src="IMG_2330.JPG" alt="You"></div>
+                </div>
+            </div>
+            <div class="puzzle-card" data-audio-id="audioHappy" data-order="7">
+                <div class="card-inner">
+                    <div class="card-front">?</div>
+                    <div class="card-back"><img src="IMG_2336.JPG" alt="Happy"></div>
+                </div>
+            </div>
+            <div class="puzzle-card" data-audio-id="audioTo" data-order="8">
+                <div class="card-inner">
+                    <div class="card-front">?</div>
+                    <div class="card-back"><img src="IMG_2334.JPG" alt="To"></div>
+                </div>
+            </div>
+            <div class="puzzle-card" data-finale="true" data-order="9">
+                <div class="card-inner">
+                    <div class="card-front">?</div>
+                    <div class="card-back"><img src="IMG_2343.JPG" alt="Finale"></div>
+                </div>
+            </div>
+        </div>
+
+        <a href="finale.html" id="finaleButton" class="button-link" style="display: none;">
+            <button>ดูเซอร์ไพรส์สุดท้าย!</button>
+        </a>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const puzzleCards = document.querySelectorAll('.puzzle-card');
+            const finaleButton = document.getElementById('finaleButton');
+            const totalCards = puzzleCards.length;
+            let revealedCount = 0;
+
+            puzzleCards.forEach(card => {
+                card.addEventListener('click', () => {
+                    // ป้องกันการคลิกซ้ำ
+                    if (card.classList.contains('flipped')) {
+                        return;
+                    }
+
+                    // 1. เปิดแผ่น
+                    card.classList.add('flipped');
+                    revealedCount++;
+
+                    // 2. หยุดเสียงสั้นๆ ทุกอันก่อนเล่นเสียงใหม่
+                    document.querySelectorAll('audio').forEach(a => {
+                        // หยุดเฉพาะเพลงสั้นเท่านั้น เพื่อไม่ให้เพลงเต็มถูกหยุด
+                        if (a.id !== 'audioFullSong') {
+                            a.pause();
+                            a.currentTime = 0;
+                        }
+                    });
+
+                    // 3. ตรวจสอบและเล่นเสียงสั้นๆ (แผ่น 1-8)
+                    const audioId = card.getAttribute('data-audio-id');
+                    if (audioId) {
+                        const audio = document.getElementById(audioId);
+                        if (audio) {
+                            // การใช้ .play() ต้องมี try/catch เสมอ
+                            audio.play().catch(error => {
+                                console.error('Autoplay failed for audio:', audioId, error);
+                            });
+                        }
+                    }
+
+                    // 4. ตรวจสอบเงื่อนไขเพลงเต็ม (แผ่นที่ 9)
+                    const isFinaleCard = card.getAttribute('data-finale') === 'true';
+                    if (isFinaleCard) {
+                        const fullSong = document.getElementById('audioFullSong');
+                        if (fullSong) {
+                            // เล่นเพลงเต็ม
+                            fullSong.play().catch(error => {
+                                console.error('Full song autoplay failed:', error);
+                            });
+                        }
+                    }
+
+                    // 5. แสดงปุ่ม Finale เมื่อเปิดครบทุกแผ่น
+                    if (revealedCount === totalCards) {
+                        // หน่วงเวลาเล็กน้อยเพื่อให้เพลงเต็มเริ่มเล่น
+                        setTimeout(() => {
+                            finaleButton.style.display = 'inline-block';
+                        }, 1000);
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+
+</html>
