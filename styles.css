@@ -420,7 +420,7 @@ button:hover,
 }
 
 .envelope.open:before {
-    transform: rotateX(180deg);
+    transform: rotateX(360deg);
 }
 
 .envelope.open .letter-content {
