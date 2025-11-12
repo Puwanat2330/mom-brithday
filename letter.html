@@ -7,30 +7,173 @@
     <title>จดหมายจากใจลูก</title>
     <link rel="stylesheet" href="styles.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+
+    <style>
+        /* --- Letter Page Specifics --- */
+        
+        .envelope-wrapper {
+            display: flex;
+            /* จัดเรียงซองจดหมายให้นอนเรียงกัน */
+            justify-content: center;
+            gap: 40px;
+            /* ระยะห่างระหว่างซองจดหมาย */
+            flex-wrap: wrap;
+            /* ให้ซองจดหมายขึ้นบรรทัดใหม่เมื่อหน้าจอเล็ก */
+            margin-bottom: 50px;
+        }
+        
+        .envelope {
+            position: relative;
+            width: 350px;
+            /* ขนาดซองจดหมาย (ปรับลดลงเพื่อให้วางได้ 3 ซอง) */
+            height: 250px;
+            background-color: #f7bbcf;
+            border-radius: 10px;
+            cursor: pointer;
+            box-shadow: 0 8px 15px rgba(0, 0, 0, 0.1);
+            transition: transform 0.5s ease-out;
+            margin: 10px 0;
+            /* จัดระยะห่างเล็กน้อย */
+        }
+        
+        .envelope:hover {
+            transform: scale(1.05);
+        }
+        
+        .envelope:before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 0;
+            height: 0;
+            /* ฝาซอง (ใช้ครึ่งหนึ่งของความกว้างและความสูง) */
+            border-left: 175px solid transparent;
+            border-right: 175px solid transparent;
+            border-top: 90px solid #f29ec0;
+            border-radius: 10px 10px 0 0;
+            transform-origin: top;
+            transition: transform 0.5s ease-out;
+            z-index: 2;
+        }
+        /* สถานะเปิดซอง */
+        
+        .envelope.open:before {
+            transform: rotateX(360deg);
+        }
+        
+        .envelope.open .letter-content {
+            transform: translateY(-100px);
+            opacity: 1;
+        }
+        
+        .letter-content {
+            position: absolute;
+            width: 90%;
+            height: 90%;
+            background-color: white;
+            top: 5%;
+            left: 5%;
+            border-radius: 8px;
+            padding: 15px;
+            box-sizing: border-box;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+            transform: translateY(0);
+            opacity: 0;
+            transition: transform 0.8s ease-out 0.3s, opacity 0.8s ease-out 0.3s;
+            z-index: 1;
+            overflow-y: auto;
+            text-align: left;
+        }
+        
+        .letter-content h3 {
+            text-align: center;
+            margin-bottom: 10px;
+            font-size: 1.2em;
+        }
+        
+        .letter-content p {
+            font-size: 0.9em;
+            /* ลดขนาดฟอนต์เพื่อให้พอดีกับซองเล็ก */
+            line-height: 1.5;
+        }
+    </style>
 </head>
 
 <body>
     <a href="menu.html" class="back-button"><i class="fas fa-arrow-left"></i> กลับ</a>
     <div class="container">
-        <h2>จดหมายฉบับพิเศษ</h2>
-        <p>คลิกที่ซองจดหมายเพื่ออ่านข้อความในจดหมาย</p>
+        <h2>จดหมายฉบับพิเศษ 💌</h2>
+        <p>มีทั้งหมด 3 ซอง! คลิกที่ซองจดหมายแต่ละฉบับเพื่ออ่านข้อความจากใจลูกค่ะ</p>
 
-        <div class="envelope">
-            <div class="letter-content">
-                <h3>Dear My MOM💖 </h3>
-                <p>
-                    สุขสันต์วันเกิดปีนี้อีกครั้งนะครับ <br><br> ทุกๆ ที่ผ่านมาในชีวิต แม่คอยประคองและให้กำลังใจเสมอ ไม่ว่าเรื่องเล็กหรือเรื่องใหญ่ แม่ไม่เคยทิ้งกันเลย หนูรู้สึกขอบคุณแม่มากๆ ที่คอยอยู่เคียงข้าง และเป็นแรงบันดาลใจให้เสมอที่ซัพพอร์ตทุกอย่างที่อยากลองทำไม่ว่าจะไปแข่งรายการต่างๆ
-                    ทำคะแนนสอบได้เท่าไร แม่คอยให้กำลังใจอยู่เสมอ<br><br> ขอให้แม่มีความสุข สุขภาพแข็งแรง มีแต่รอยยิ้มที่สดใสในทุกๆ วันนะครับ<br><br> รักแม่ที่สุดในโลก!
-                    <br> จากลูกตูน
-                </p>
+        <div class="envelope-wrapper">
+
+            <div class="envelope" data-message-id="letter1">
+                <div class="letter-content" id="content1">
+                    <h3>Dear My MOM 💖 </h3>
+                    <p>
+                        สุขสันต์วันเกิดปีนี้อีกครั้งนะครับ <br><br> ทุกๆ ที่ผ่านมาในชีวิต แม่คอยประคองและให้กำลังใจเสมอ ไม่ว่าเรื่องเล็กหรือเรื่องใหญ่ แม่ไม่เคยทิ้งกันเลย หนูรู้สึกขอบคุณแม่มากๆ ที่คอยอยู่เคียงข้าง และเป็นแรงบันดาลใจให้เสมอที่ซัพพอร์ตทุกอย่างที่อยากลองทำไม่ว่าจะไปแข่งรายการต่างๆ
+                        ทำคะแนนสอบได้เท่าไร แม่คอยให้กำลังใจอยู่เสมอ<br><br> ขอให้แม่มีความสุข สุขภาพแข็งแรง มีแต่รอยยิ้มที่สดใสในทุกๆ วันนะครับ 🥳
+                        <br> จากลูกตูน
+                    </p>
+                </div>
             </div>
+
+            <div class="envelope" data-message-id="letter2">
+                <div class="letter-content" id="content2">
+                    <h3>From young child ✨</h3>
+                    <p>
+                        สุขสันต์วันเกิดปีนี้อีกครั้งนะครับ <br><br> ขอให้แม่สุขภาพร่างกายแข็งแรง ต่อจากให้มีแต่ความสุข ยิ้มเยอะๆ บ่นหนูน้อยๆหน่อยนะคั้บบบ 🥳<br><br>
+                        <br> จากลูกโต้
+                    </p>
+                </div>
+            </div>
+
+            <div class="envelope" data-message-id="letter3">
+                <div class="letter-content" id="content3">
+                    <h3> From your husband 💖</h3>
+                    <p>
+                        Happy Birthday , my wife !<br><br> ขอให้คุณภรรยา สุขภาพแข็งแรง คิดหวังสิ่งใดให้สมปราถนา อย่านอนดึกทุกคืน ดูซีรีย์ให้น้อยลงพักผ่อนให้มากๆ สุขภาพจะได้ดี อยู่เป็นร่มโพธิ์ให้กับลูก และครอบครัว ไปนานๆ ขอให้สิ่งศักดิ์สิทธิ์คุ้มครอง พ้นภัยทั้งปวง<br><br>ความรักที่มอบให้คือของขวัญล้ำค่าที่สุดของเค้านะเตง
+                        รักอ้วนนะ จุ๊บๆ😘
+                        <br> จากใจสามีขี้บ่น
+                    </p>
+                </div>
+            </div>
+
         </div>
+
         <a href="memories.html" class="button-link">
             <button>ต่อไปยังความทรงจำ</button>
         </a>
     </div>
 
-    <script src="script.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const envelopes = document.querySelectorAll('.envelope');
+
+            envelopes.forEach(envelope => {
+                envelope.addEventListener('click', () => {
+                    // หาว่าซองนี้เปิดอยู่หรือไม่
+                    const isAlreadyOpen = envelope.classList.contains('open');
+
+                    // ปิดซองจดหมายอื่นๆ ทั้งหมดก่อน
+                    envelopes.forEach(e => {
+                        if (e !== envelope && e.classList.contains('open')) {
+                            e.classList.remove('open');
+                        }
+                    });
+
+                    // ถ้าซองที่ถูกคลิกไม่ได้เปิดอยู่ ให้เปิดซองนั้น
+                    if (!isAlreadyOpen) {
+                        envelope.classList.add('open');
+                    } else {
+                        // ถ้าเปิดอยู่แล้ว ให้ปิดซองนั้น
+                        envelope.classList.remove('open');
+                    }
+                });
+            });
+        });
+    </script>
 </body>
 
 </html>
