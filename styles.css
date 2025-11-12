@@ -424,8 +424,9 @@ button:hover,
 }
 
 .envelope.open .letter-content {
-    transform: translateY(-100px);
+    transform: translateY(-100%);
     /* เลื่อนจดหมายขึ้นมา */
+    transform: translatex(-80%);
     opacity: 1;
 }
 
